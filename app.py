@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory, url_for
-import mysql.connector
+import psycopg2
 import barcode
 from barcode.writer import ImageWriter
 import os
@@ -9,21 +9,14 @@ from PIL import Image, ImageDraw, ImageFont
 app = Flask(__name__)
 
 app.config['BARCODE_FOLDER'] = 'static/barcodes'
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'barcode_db'
+app.config['DATABASE_URL'] = 'postgres://neondb_owner:npg_nsKaJ50NfpIT@ep-yellow-sunset-acyoq8gc-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require'
 
 if not os.path.exists(app.config['BARCODE_FOLDER']):
     os.makedirs(app.config['BARCODE_FOLDER'])
 
 def get_db_connection():
-    return mysql.connector.connect(
-        host=app.config['MYSQL_HOST'],
-        user=app.config['MYSQL_USER'],
-        password=app.config['MYSQL_PASSWORD'],
-        database=app.config['MYSQL_DB']
-    )
+    conn = psycopg2.connect(app.config['DATABASE_URL'])
+    return conn
 
 @app.route('/')
 def index():
@@ -73,7 +66,7 @@ def generate_auto():
     
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT IFNULL(MAX(id), 0) + 1 FROM barcodes")
+    cursor.execute("SELECT COALESCE(MAX(id), 0) + 1 FROM barcodes")
     next_id = cursor.fetchone()[0]
     cursor.close()
     conn.close()

@@ -1,0 +1,73 @@
+/* Estilos personalizados - Tema Dark */
+body {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.card {
+    background-color: #000000;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.form-control {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    color: #ffffff;
+}
+
+.form-control::placeholder {
+    color: #bbbbbb;
+}
+
+.btn-primary {
+    background-color:#6c757d;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color:#6c757d;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #555;
+}
+
+.btn-info {
+    background-color:#6c757d;
+    border: none;
+}
+
+.btn-info:hover {
+    background-color: #6c757d;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #1e7e34;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
